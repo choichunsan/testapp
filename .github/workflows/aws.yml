@@ -29,6 +29,7 @@ name: Deploy to Amazon ECS
 on:
   push:
     branches: [ "main" ]
+    
 
 env:
   AWS_REGION: ap-northeast-2                  # set this to your preferred AWS region, e.g. us-west-1
@@ -46,7 +47,7 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    runs-on: codebuild-kaucuro-github-runner-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: codebuild-kaucuro-test-build-runner-${{ github.run_id }}-${{ github.run_attempt }}
     environment: production
 
     steps:
