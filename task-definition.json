@@ -99,8 +99,6 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2025-02-17T05:38:20.836Z",
-    "registeredBy": "arn:aws:sts::730335492431:assumed-role/mzc_solutions_architect/kaucuro@megazone.com",
     "enableFaultInjection": false,
     "tags": [
         {
