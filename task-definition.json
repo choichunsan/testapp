@@ -1,0 +1,111 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:730335492431:task-definition/kaucuro-test-ecs-task-def:8",
+    "containerDefinitions": [
+        {
+            "name": "web",
+            "image": "730335492431.dkr.ecr.ap-northeast-2.amazonaws.com/kaucuro",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "web",
+                    "containerPort": 9000,
+                    "hostPort": 9000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/kaucuro-test-ecs-task-def",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "echo Hello || exit 1"
+                ],
+                "interval": 30,
+                "timeout": 5,
+                "retries": 3
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "kaucuro-test-ecs-task-def",
+    "executionRoleArn": "arn:aws:iam::730335492431:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 8,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.24"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.28"
+        },
+        {
+            "name": "ecs.capability.container-health-check"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2025-02-17T05:38:20.836Z",
+    "registeredBy": "arn:aws:sts::730335492431:assumed-role/mzc_solutions_architect/kaucuro@megazone.com",
+    "enableFaultInjection": false,
+    "tags": [
+        {
+            "key": "User",
+            "value": "kaucuro"
+        }
+    ]
+}
