@@ -66,8 +66,18 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    
     - name: pre-build
-    - run: |
+      uses: actions/setup-python@v5
+      with:
+        # Semantic version range syntax or exact version of a Python version
+        python-version: '3.8'
+          # Optional - x64 or x86 architecture, defaults to x64
+        architecture: 'x64'
+
+      - name: Display Python version and build
+      - run: |
+        python -c "import sys; print(sys.version)"
         apk add --no-cache curl jq python3 py3-pip
         python3 -m pip config set global.break-system-packages true
 
