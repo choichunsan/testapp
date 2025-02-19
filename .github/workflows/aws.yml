@@ -47,8 +47,8 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    # runs-on: codebuild-kaucuro-test-build-runner-${{ github.run_id }}-${{ github.run_attempt }}
-    runs-on: ubuntu-latest
+    runs-on: codebuild-kaucuro-test-build-runner-${{ github.run_id }}-${{ github.run_attempt }}
+    # runs-on: ubuntu-latest
     environment: production
 
     steps:
