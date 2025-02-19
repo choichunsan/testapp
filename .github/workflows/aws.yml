@@ -24,9 +24,9 @@ jobs:
     # runs-on: ubuntu-latest
     runs-on: 
       - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
-      - image: docker:dind
-      # - image:${{ matrix.os }}
-      # - instance-size:${{ matrix.size }}
+      # - image: docker:dind
+      - image:${{ matrix.os }}
+      - instance-size:${{ matrix.size }}
     # services:
     #   docker:
     #     image: docker:dind
@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-5.0
+          - os: arm-3.0
             size: small
     environment: production
 
