@@ -27,27 +27,41 @@ jobs:
       # - image: docker:dind
       - image:${{ matrix.os }}
       - instance-size:${{ matrix.size }}
-    # services:
-    #   docker:
-    #     image: docker:dind
-    #     options: --privileged
-    #     ports:
-    #       - 2375:2375
-    # container:
-    #   image: ubuntu:latest
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+        ports:
+          - 2375:2375
+    container:
+      image: ubuntu:latest
     strategy:
       matrix:
         include:
-          - os: arm-3.0
+          - os: ubuntu-5.0
             size: small
     environment: production
 
     steps:
-      - run: echo "Hello World"
-      
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Docker
+        run: |
+          apt-get update
+          apt-get install -y docker.io
+
+      - name: Test connection
+        run: |
+          apt-get update
+          apt-get install -y iputils-ping
+          ping -c 3 docker
+
+      - name: Test Docker
+        run: |
+          docker version
+          docker info
+          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
