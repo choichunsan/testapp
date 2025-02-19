@@ -28,10 +28,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: arm-3.0
+          - os: ubuntu-5.0
             size: small
-          - os: linux-5.0
-            size: large
     environment: production
 
     steps:
