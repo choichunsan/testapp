@@ -26,7 +26,7 @@ jobs:
       - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
       # - image: docker:dind
       - image:${{ matrix.os }}
-      - instance-size:${{ matrix.size }}
+      # - instance-size:${{ matrix.size }}
     # services:
     #   docker:
     #     image: docker:dind
@@ -38,8 +38,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-5.0
-            size: small
+          - os: runner-ec2
+            # size: small
     environment: production
 
     steps:
@@ -62,47 +62,47 @@ jobs:
       #     docker version
       #     docker info
           
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ env.AWS_REGION }}
-
-      # - name: Login to Amazon ECR
-      #   id: login-ecr
-      #   uses: aws-actions/amazon-ecr-login@v1
-
-      # - name: Build, tag, and push image to Amazon ECR
-      #   id: build-image
-      #   env:
-      #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      #     IMAGE_TAG: ${{ github.sha }}
-      #   run: |
-      #     # Build a docker container and
-      #     # push it to ECR so that it can
-      #     # be deployed to ECS.
-      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      #     echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@v3
-      - uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::730335492431:role/service-role/codebuild-kaucuro-runner-codebuild-service-role
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-      - uses: aws-actions/amazon-ecr-login@v1
-        id: ecr
-      - uses: docker/metadata-action@v4
-        id: metadata
-        with:
-          images: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}
-      - uses: int128/kaniko-action@v1
-        with:
-          push: true
-          tags: ${{ steps.metadata.outputs.tags }}
-          labels: ${{ steps.metadata.outputs.labels }}
-          cache: true
-          cache-repository: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}/cache
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Build a docker container and
+          # push it to ECR so that it can
+          # be deployed to ECS.
+          sudo docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+      # - uses: actions/checkout@v3
+      # - uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     role-to-assume: arn:aws:iam::730335492431:role/service-role/codebuild-kaucuro-runner-codebuild-service-role
+      #     aws-region: ${{ env.AWS_REGION }}
+      # - uses: aws-actions/amazon-ecr-login@v1
+      #   id: ecr
+      # - uses: docker/metadata-action@v4
+      #   id: metadata
+      #   with:
+      #     images: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}
+      # - uses: int128/kaniko-action@v1
+      #   with:
+      #     push: true
+      #     tags: ${{ steps.metadata.outputs.tags }}
+      #     labels: ${{ steps.metadata.outputs.labels }}
+      #     cache: true
+      #     cache-repository: ${{ steps.ecr.outputs.registry }}/${{ github.repository }}/cache
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
