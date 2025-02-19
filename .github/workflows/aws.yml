@@ -26,7 +26,7 @@ jobs:
       - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
       # - image: docker:dind
       - image:${{ matrix.os }}
-      # - instance-size:${{ matrix.size }}
+      - instance-size:${{ matrix.size }}
     # services:
     #   docker:
     #     image: docker:dind
@@ -38,8 +38,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: runner-ec2
-            # size: small
+          - os: ubuntu-5.0
+            size: small
     environment: production
 
     steps:
@@ -82,6 +82,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
+          sudo systemctl start docker
           sudo docker ps
           # sudo docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           # sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
