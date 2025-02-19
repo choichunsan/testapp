@@ -25,6 +25,7 @@ jobs:
     runs-on: 
       - codebuild-kaucuro-test-gitrunner-${{ github.run_id }}-${{ github.run_attempt }}
       - image:${{ matrix.os }}
+      - instance-size:${{ matrix.size }}
     strategy:
       matrix:
         include:
