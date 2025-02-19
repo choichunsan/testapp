@@ -3,7 +3,7 @@ on: [push]
 jobs:
   Hello-World-Job:
     runs-on:
-      - codebuild-kaucuro-test-gitrunner-${{ github.run_id }}-${{ github.run_attempt }}
+      - codebuild-kaucuro-test-gitrunner-${{ github.run_id }}-${{ github.run_attempt }}-arm-3.0-small
     steps:
       - run: echo "Hello World"
 
