@@ -27,14 +27,14 @@ jobs:
       # - image: docker:dind
       - image:${{ matrix.os }}
       - instance-size:${{ matrix.size }}
-    services:
-      docker:
-        image: docker:dind
-        options: --privileged
-        ports:
-          - 2375:2375
-    container:
-      image: ubuntu:latest
+    # services:
+    #   docker:
+    #     image: docker:dind
+    #     options: --privileged
+    #     ports:
+    #       - 2375:2375
+    # container:
+    #   image: ubuntu:latest
     strategy:
       matrix:
         include:
