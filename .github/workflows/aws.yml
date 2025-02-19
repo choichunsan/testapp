@@ -26,6 +26,12 @@ jobs:
       - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
       - image:${{ matrix.os }}
       - instance-size:${{ matrix.size }}
+    services:
+      docker:
+        image: docker:dind
+        options: --privileged
+        ports:
+          - 2375:2375
     strategy:
       matrix:
         include:
