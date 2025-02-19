@@ -21,8 +21,17 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    runs-on: codebuild-kaucuro-test-gitrunner-${{ github.run_id }}-${{ github.run_attempt }}
     # runs-on: ubuntu-latest
+    runs-on: 
+      - codebuild-kaucuro-test-gitrunner-${{ github.run_id }}-${{ github.run_attempt }}
+      - image:${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: arm-3.0
+            size: small
+          - os: linux-5.0
+            size: large
     environment: production
 
     steps:
