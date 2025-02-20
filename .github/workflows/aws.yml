@@ -82,11 +82,11 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          ps -ef | grep docker
+          # ps -ef | grep docker
           # sudo docker ps
-          # sudo docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          # sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          # echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
       # - uses: actions/checkout@v3
       # - uses: aws-actions/configure-aws-credentials@v1
       #   with:
