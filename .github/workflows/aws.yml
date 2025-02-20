@@ -35,11 +35,11 @@ jobs:
     #       - 2375:2375
     # container:
     #   image: ubuntu:latest
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-5.0
-            size: small
+    # strategy:
+    #   matrix:
+    #     include:
+    #       - os: ubuntu-5.0
+    #         size: small
     environment: production
 
     steps:
