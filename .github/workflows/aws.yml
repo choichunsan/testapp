@@ -21,9 +21,9 @@ env:
 jobs:
   deploy:
     name: Deploy
-    # runs-on: ubuntu-latest
-    runs-on: 
-      - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: ubuntu-latest
+    # runs-on: 
+    #   - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
       # - image: docker:dind
       - image:${{ matrix.os }}
       - instance-size:${{ matrix.size }}
