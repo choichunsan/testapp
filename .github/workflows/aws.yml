@@ -25,8 +25,8 @@ jobs:
     # runs-on: 
     #   - codebuild-kaucuro-runner-codebuild-${{ github.run_id }}-${{ github.run_attempt }}
       # - image: docker:dind
-      - image:${{ matrix.os }}
-      - instance-size:${{ matrix.size }}
+      # - image:${{ matrix.os }}
+      # - instance-size:${{ matrix.size }}
     # services:
     #   docker:
     #     image: docker:dind
