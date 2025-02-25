@@ -81,8 +81,7 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          which dockerd
-          /usr/bin/dockerd &
+          docker info
           ls -l /var/run/docker.sock
           # docker buildx version
           # docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
