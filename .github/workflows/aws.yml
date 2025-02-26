@@ -82,7 +82,7 @@ jobs:
           # push it to ECR so that it can
           # be deployed to ECS.
           # docker info
-          ls -l ~/.docker/run/docker.sock
+          ls -l /actions-runner
           # docker buildx version
           # docker buildx build --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
