@@ -24,3 +24,5 @@ app.get('/SM04000000/SM04020000/SM04050100', async (_req, res, _next) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// test
